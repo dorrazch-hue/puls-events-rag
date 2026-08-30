@@ -28,15 +28,22 @@ def nettoyer_evenement(e):
         'texte_complet': f"{titre}. {description} Lieu: {lieu}, {ville}."
     }
 
+COMMUNES_GRAND_PARIS = [
+    'paris', 'saint-ouen', 'boulogne', 'vincennes',
+    'montreuil', 'saint-denis', 'nanterre', 'neuilly'
+]
+
 def filtrer_evenements(evenements):
-    """Garde uniquement les événements de moins d'un an."""
+    """Garde uniquement les événements de moins d'un an dans le Grand Paris."""
     resultats = []
     for e in evenements:
         date_str = e.get('firstTiming', {}).get('begin', '')
+        ville = e.get('location', {}).get('city', '').lower()
         if date_str:
             try:
                 date = datetime.fromisoformat(date_str[:19])
-                if date >= DATE_MIN:
+                dans_perimetre = any(c in ville for c in COMMUNES_GRAND_PARIS)
+                if date >= DATE_MIN and dans_perimetre:
                     resultats.append(e)
             except:
                 pass
