@@ -2,6 +2,7 @@ import unittest
 import json
 import os
 import faiss
+import numpy as np
 from datetime import datetime, timedelta
 
 FIXTURES_PATH = "tests/fixtures_events.json"
@@ -14,7 +15,7 @@ class TestPulsEvents(unittest.TestCase):
             self.events = json.load(f)
 
     def test_donnees_non_vides(self):
-        self.assertGreater(len(self.events), 0, "La liste d'evenements est vide")
+        self.assertGreater(len(self.events), 0, "La liste d evenements est vide")
 
     def test_evenements_moins_un_an(self):
         un_an = datetime.now() - timedelta(days=365)
@@ -41,7 +42,28 @@ class TestPulsEvents(unittest.TestCase):
 
     def test_index_faiss_existe(self):
         self.assertTrue(os.path.exists(INDEX_PATH),
-            "Index FAISS absent. Lancez d'abord scripts/vectorize.py")
+            "Index FAISS absent. Lancez scripts/vectorize.py")
+
+    def test_recherche_vectorielle(self):
+        if not os.path.exists(INDEX_PATH):
+            self.skipTest("Index FAISS absent, test ignore")
+        index = faiss.read_index(INDEX_PATH)
+        self.assertGreater(index.ntotal, 0, "Index FAISS vide")
+        vecteur_test = np.random.rand(1, index.d).astype("float32")
+        distances, indices = index.search(vecteur_test, k=3)
+        self.assertEqual(len(indices[0]), 3, "La recherche doit retourner 3 resultats")
+        self.assertTrue(all(d >= 0 for d in distances[0]), "Distances doivent etre positives")
+
+    def test_texte_complet_non_vide(self):
+        for e in self.events:
+            texte = e.get("texte_complet", "")
+            self.assertGreater(len(texte), 10,
+                f"texte_complet trop court pour: {e.get('titre')}")
+
+    def test_gestion_champ_manquant(self):
+        event_incomplet = {"titre": "Test", "lieu": "Paris"}
+        texte = event_incomplet.get("texte_complet", "")
+        self.assertEqual(texte, "", "Un champ absent doit retourner une chaine vide")
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
