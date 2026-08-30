@@ -1,6 +1,7 @@
 import requests
 import json
 import os
+os.makedirs('data', exist_ok=True)
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
 
