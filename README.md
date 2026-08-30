@@ -1,50 +1,55 @@
-# Puls-Events RAG Chatbot
+# Portfolio · Data Engineer
 
-Chatbot RAG pour les evenements culturels a Paris et Grand Paris.
+Formation Data Engineer — spécialisation NLP & bases de données vectorielles.  
+Ce portfolio regroupe les projets réalisés en alternance chez **Puls-Events**, une plateforme de découverte d'événements culturels en temps réel.
 
-## Technologies
+---
 
-- **LangChain** : orchestration RAG (RunnableLambda, PromptTemplate)
-- **Mistral AI** : embeddings (mistral-embed, 1024 dimensions) et generation (mistral-small-latest)
-- **FAISS** : index vectoriel IndexFlatL2 avec seuil de pertinence
-- **Open Agenda API** : agenda que-faire-a-paris (100 evenements, Grand Paris)
+## 🗂️ Projets
 
-## Prerequis
+### Chatbot RAG — Puls-Events MVP
+> Transformation d'un POC en MVP production-ready
 
-- Python 3.11+
-- Cle API Mistral AI : https://console.mistral.ai
-- Cle API Open Agenda : https://openagenda.com
+**Contexte** : Puls-Events souhaitait passer d'un moteur de recherche sémantique validé en POC à un chatbot intelligent déployable en production. J'ai pris en charge la conception de l'architecture et la rédaction de l'étude de design du MVP.
 
-## Installation
+**Ce que j'ai fait :**
+- Analyse des besoins techniques (mémoire conversationnelle, géolocalisation, recherche web temps réel, monitoring)
+- Choix et justification de la stack cloud (GCP · Vertex AI · Cloud Run)
+- Conception de l'architecture RAG complète (LangChain · ChromaDB · Gemini Pro)
+- Rédaction du macro backlog (méthode MoSCoW) et du plan de projet sur 12 semaines
+- Estimation des coûts build (~3 200 €) et OPEX (~108 €/mois)
 
-1. Cloner : git clone https://github.com/dorrazch-hue/puls-events-rag.git
-2. Creer le venv : python3 -m venv venv
-3. Activer : source venv/bin/activate
-4. Installer : pip install -r requirements.txt
-5. Configurer : cp .env.example .env  puis remplir vos cles API
+**Stack technique :**
 
-## Utilisation
+![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)
+![GCP](https://img.shields.io/badge/GCP-Vertex_AI-4285F4?logo=googlecloud&logoColor=white)
+![LangChain](https://img.shields.io/badge/LangChain-0.1-green)
+![ChromaDB](https://img.shields.io/badge/ChromaDB-vectorDB-orange)
+![HuggingFace](https://img.shields.io/badge/HuggingFace-smolagents-yellow?logo=huggingface)
+![Langfuse](https://img.shields.io/badge/Monitoring-Langfuse-purple)
 
-1. Collecter les donnees : python3 scripts/fetch_events.py
-2. Nettoyer : python3 scripts/preprocess.py
-3. Vectoriser par lots : python3 scripts/vectorize.py
-4. Lancer le chatbot : python3 scripts/chatbot.py
-5. Lancer les tests : python3 tests_unitaires.py
+**Compétences démontrées :**
+- Architecture de systèmes RAG (Retrieval-Augmented Generation)
+- Gestion de projet (méthode hybride Agile / Cycle en V)
+- Veille technologique cloud et NLP
+- Estimation de coûts et planification
 
-## Structure
+---
 
-- scripts/fetch_events.py : recuperation Open Agenda (cree data/ automatiquement)
-- scripts/preprocess.py : nettoyage et structuration
-- scripts/vectorize.py : vectorisation par lots de 10 (mistral-embed)
-- scripts/chatbot.py : chatbot RAG LangChain + Mistral avec mesure des temps
-- tests/fixtures_events.json : donnees de test independantes
-- tests_unitaires.py : 8 tests unitaires (donnees, FAISS, erreurs)
-- docs/rapport_technique_puls_events.docx : rapport technique
-- docs/presentation_puls_events.pptx : presentation 12 slides
-- docs/evaluation_rag.md : evaluation RAG sur 5 questions annotees (score : 73%)
-- .env.example : modele de configuration
+## 🛠️ Compétences techniques
 
-## Perimetre geographique
+| Domaine | Outils & technologies |
+|---|---|
+| Langage | Python |
+| NLP / IA | LangChain, Vertex AI, Hugging Face, smolagents |
+| Bases vectorielles | ChromaDB, Vertex AI Vector Search |
+| Cloud | GCP (Cloud Run, Firestore, Vertex AI) |
+| Monitoring | Langfuse |
+| Gestion de projet | Agile, MoSCoW, backlog, planning |
 
-Grand Paris (Paris, Saint-Ouen, Boulogne, Vincennes, Montreuil, Saint-Denis, Nanterre, Neuilly).
-Evenements des 12 derniers mois.
+---
+
+## 📬 Contact
+
+**Dorra** · Data Engineer en alternance  
+[GitHub](https://github.com/dorrazch-hue) · Formation Data Engineer

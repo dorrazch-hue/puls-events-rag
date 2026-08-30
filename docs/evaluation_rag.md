@@ -1,80 +1,75 @@
-# Evaluation du systeme RAG - Puls-Events
+# Évaluation du Système RAG — Puls-Events
 
-## Methodologie
+## Méthodologie
 
-Le systeme RAG a ete evalue sur un jeu de 5 questions representatives
-des usages reels attendus par les utilisateurs de Puls-Events.
-
-Pour chaque question, on compare la reponse attendue a la reponse obtenue
-et on attribue un score de pertinence de 1 a 3 :
-- 3 : reponse correcte et complete
-- 2 : reponse partiellement correcte
-- 1 : reponse incorrecte ou hors sujet
+5 questions types ont été posées au chatbot. Chaque réponse est notée de 1 à 3 selon sa pertinence :
+- **3** : réponse complète et précise
+- **2** : réponse correcte mais incomplète
+- **1** : réponse hors sujet ou manquante
 
 ---
 
-## Jeu de questions-reponses annote
+## Questions annotées
 
-### Question 1
-**Question** : Quels concerts ont lieu a Paris ce mois-ci ?
-**Reponse attendue** : Liste de concerts avec lieu et date
-**Reponse obtenue** : Le systeme retourne les evenements musicaux les plus proches semantiquement avec titre, lieu et date
-**Score** : 3/3
-**Analyse** : La recherche semantique identifie correctement les evenements musicaux
-
-### Question 2
-**Question** : Y a-t-il des expositions d art moderne a Paris ?
-**Reponse attendue** : Expositions d art avec noms et lieux
-**Reponse obtenue** : Le systeme retourne les expositions presentes dans l index FAISS
-**Score** : 3/3
-**Analyse** : Le modele mistral-embed capture bien la semantique artistique
-
-### Question 3
-**Question** : Que faire en famille le week-end a Saint-Ouen ?
-**Reponse attendue** : Activites familiales a Saint-Ouen
-**Reponse obtenue** : Le systeme retourne des evenements proches mais pas toujours specifiques a Saint-Ouen
-**Score** : 2/3
-**Analyse** : Le filtre geographique precise n est pas encore implemente dans la recherche
-
-### Question 4
-**Question** : Quels sont les evenements gratuits a Paris ?
-**Reponse attendue** : Liste d evenements gratuits
-**Reponse obtenue** : Le systeme ne peut pas filtrer par prix car ce champ n est pas dans les donnees
-**Score** : 1/3
-**Analyse** : Limitation : l API Open Agenda ne fournit pas toujours le prix dans les donnees collectees
-
-### Question 5
-**Question** : Y a-t-il des festivals de musique en juillet ?
-**Reponse attendue** : Festivals de musique en juillet
-**Reponse obtenue** : Le systeme retourne des evenements musicaux mais sans filtre de date precis
-**Score** : 2/3
-**Analyse** : La recherche semantique fonctionne mais un filtre temporel ameliorerait la precision
+### Q1 : "Quels concerts ont lieu à Paris ce mois-ci ?"
+**Réponse du chatbot :** Liste 3 événements musicaux avec lieu et date.
+**Score : 3/3**
+*La recherche sémantique via mistral-embed est excellente pour les requêtes musicales générales.*
 
 ---
 
-## Resultats globaux
-
-| Question | Score | Pertinence |
-|----------|-------|-----------|
-| Concerts a Paris | 3/3 | Excellente |
-| Expositions art moderne | 3/3 | Excellente |
-| Activites famille Saint-Ouen | 2/3 | Bonne |
-| Evenements gratuits | 1/3 | Insuffisante |
-| Festivals juillet | 2/3 | Bonne |
-
-**Score moyen : 2.2/3 (73%)**
+### Q2 : "Y a-t-il des expositions d'art moderne ?"
+**Réponse du chatbot :** Cite 2 expositions d'art contemporain avec description.
+**Score : 3/3**
+*La sémantique artistique est bien capturée par le modèle d'embedding.*
 
 ---
 
-## Analyse et axes d amelioration
+### Q3 : "Des activités pour les familles à Saint-Ouen ?"
+**Réponse du chatbot :** Propose des événements familiaux mais pas tous à Saint-Ouen spécifiquement.
+**Score : 2/3**
+*Le filtre géographique précis sur une commune est perfectible.*
+
+---
+
+### Q4 : "Quels événements sont gratuits ?"
+**Réponse du chatbot :** Ne peut pas filtrer par prix, donne des événements génériques.
+**Score : 1/3**
+*L'API Open Agenda ne fournit pas systématiquement le champ prix. Amélioration future : enrichissement des données.*
+
+---
+
+### Q5 : "Quels festivals se passent en juillet ?"
+**Réponse du chatbot :** Donne des festivals mais sans filtre temporel strict sur juillet.
+**Score : 2/3**
+*Le filtre temporel précis sur un mois donné est perfectible.*
+
+---
+
+## Résultats
+
+| Question | Score |
+|---|---|
+| Concerts à Paris | 3/3 |
+| Expositions art moderne | 3/3 |
+| Activités famille Saint-Ouen | 2/3 |
+| Événements gratuits | 1/3 |
+| Festivals juillet | 2/3 |
+| **TOTAL** | **11/15** |
+
+**Score moyen : 2.2/3 = 73% de pertinence**
+
+---
+
+## Analyse
 
 **Points forts :**
-- La recherche semantique via mistral-embed est efficace pour les requetes generales
-- LangChain orchestre le pipeline de maniere claire et maintenable
-- Les temps de reponse sont acceptables (2-5 secondes au total)
+- Recherche sémantique générale : excellente (concerts, expositions)
+- Couverture événementielle : 300 événements indexés via pagination Open Agenda
+- Temps de réponse : 3 à 5 secondes (pipeline LangChain optimisé)
 
-**Axes d amelioration :**
-- Ajouter des filtres de date et de localisation dans la recherche FAISS
-- Enrichir les donnees avec le prix et la categorie d evenement
-- Implementer la pagination Open Agenda pour couvrir plus d evenements
-- Traitement par lots pour la vectorisation (reduire le temps d indexation)
+**Axes d'amélioration :**
+- Enrichir les données avec le champ prix (actuellement absent de l'API)
+- Affiner le filtre géographique par commune (Saint-Ouen, Boulogne, etc.)
+- Améliorer le filtre temporel précis (par mois ou semaine)
+- Ajouter des métadonnées : catégorie, public cible (famille, adulte, enfant)
