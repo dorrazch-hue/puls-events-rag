@@ -1,54 +1,57 @@
-import json
 import os
+import json
+import time
+import pickle
 import faiss
 import numpy as np
-import pickle
-import time
-from mistralai.client import Mistral
 from dotenv import load_dotenv
+from mistralai.client import Mistral
 
 load_dotenv()
 client = Mistral(api_key=os.getenv("MISTRAL_API_KEY"))
 
-def obtenir_embedding(texte):
-    """Transforme un texte en vecteur avec Mistral."""
+CLEAN_PATH = "data/events_clean.json"
+INDEX_PATH = "data/events.index"
+META_PATH = "data/events_metadata.pkl"
+BATCH_SIZE = 10
+
+with open(CLEAN_PATH, "r", encoding="utf-8") as f:
+    events = json.load(f)
+
+print(f"{len(events)} evenements a vectoriser (lots de {BATCH_SIZE})")
+
+textes = [e.get("texte_complet", "") for e in events]
+embeddings = []
+
+for i in range(0, len(textes), BATCH_SIZE):
+    batch = textes[i:i + BATCH_SIZE]
+    print(f"Lot {i//BATCH_SIZE + 1}/{(len(textes)-1)//BATCH_SIZE + 1} ({len(batch)} evenements)...")
+    
     while True:
         try:
-            response = client.embeddings.create(
-                model="mistral-embed",
-                inputs=[texte]
-            )
-            return response.data[0].embedding
+            start = time.time()
+            response = client.embeddings.create(model="mistral-embed", inputs=batch)
+            duration = time.time() - start
+            print(f"  -> OK en {duration:.2f}s")
+            for item in response.data:
+                embeddings.append(item.embedding)
+            time.sleep(0.5)
+            break
         except Exception as e:
             if "429" in str(e):
-                print("    ⏳ Limite atteinte, pause 10 secondes...")
+                print("  -> Rate limit, attente 10s...")
                 time.sleep(10)
             else:
                 raise e
 
-def vectoriser_evenements():
-    with open('data/events_clean.json', 'r', encoding='utf-8') as f:
-        evenements = json.load(f)
-    
-    print(f"Vectorisation de {len(evenements)} événements...")
-    
-    vecteurs = []
-    for i, e in enumerate(evenements):
-        print(f"  {i+1}/{len(evenements)} - {e['titre'][:50]}...")
-        embedding = obtenir_embedding(e['texte_complet'])
-        vecteurs.append(embedding)
-        time.sleep(0.5)
-    
-    vecteurs_np = np.array(vecteurs, dtype='float32')
-    dimension = len(vecteurs[0])
-    index = faiss.IndexFlatL2(dimension)
-    index.add(vecteurs_np)
-    
-    faiss.write_index(index, 'data/events.index')
-    with open('data/events_metadata.pkl', 'wb') as f:
-        pickle.dump(evenements, f)
-    
-    print(f"Index FAISS créé avec {index.ntotal} vecteurs !")
+vectors = np.array(embeddings, dtype="float32")
+dimension = vectors.shape[1]
+index = faiss.IndexFlatL2(dimension)
+index.add(vectors)
 
-if __name__ == "__main__":
-    vectoriser_evenements()
+faiss.write_index(index, INDEX_PATH)
+with open(META_PATH, "wb") as f:
+    pickle.dump(events, f)
+
+print(f"Index FAISS cree : {index.ntotal} vecteurs de dimension {dimension}")
+print(f"Sauvegarde : {INDEX_PATH} et {META_PATH}")
