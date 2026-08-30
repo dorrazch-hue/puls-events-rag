@@ -1,0 +1,26 @@
+[
+  {
+    "titre": "Concert jazz Villette",
+    "description": "Concert jazz",
+    "lieu": "Paris",
+    "ville": "Paris",
+    "date_debut": "2026-06-15",
+    "texte_complet": "Concert de jazz au Parc de la Villette a Paris."
+  },
+  {
+    "titre": "Expo Pompidou",
+    "description": "Expo art moderne",
+    "lieu": "Paris",
+    "ville": "Paris",
+    "date_debut": "2026-07-01",
+    "texte_complet": "Exposition art moderne au Centre Pompidou a Paris."
+  },
+  {
+    "titre": "Festival cinema Saint-Ouen",
+    "description": "Festival films",
+    "lieu": "Saint-Ouen",
+    "ville": "Saint-Ouen",
+    "date_debut": "2026-05-20",
+    "texte_complet": "Festival de cinema a Saint-Ouen."
+  }
+]
