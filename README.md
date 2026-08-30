@@ -1,79 +1,47 @@
 # Puls-Events RAG Chatbot
 
-Chatbot intelligent basé sur la technologie RAG (Retrieval-Augmented Generation) pour répondre à des questions sur les événements culturels à Paris et Grand Paris.
+Chatbot RAG pour les evenements culturels a Paris et Grand Paris.
 
-## Technologies utilisées
+## Technologies
 
-- **LangChain** : orchestration du pipeline RAG
-- **Mistral AI** : embeddings () et génération ()
-- **FAISS** : base de données vectorielle pour la recherche sémantique
-- **Open Agenda API** : source des données événementielles
+- **LangChain** : orchestration RAG (RunnableLambda, PromptTemplate)
+- **Mistral AI** : embeddings (mistral-embed) et generation (mistral-small-latest)
+- **FAISS** : index vectoriel IndexFlatL2
+- **Open Agenda API** : agenda que-faire-a-paris
 
-## Prérequis
+## Prerequis
 
 - Python 3.11+
-- Clé API Mistral AI
-- Clé API Open Agenda
+- Cle API Mistral AI : https://console.mistral.ai
+- Cle API Open Agenda : https://openagenda.com
 
 ## Installation
 
-```bash
-git clone https://github.com/dorrazch-hue/puls-events-rag.git
-cd puls-events-rag
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-```
-
-Créer un fichier `.env` à la racine :
-
-```
-MISTRAL_API_KEY=ta_cle_mistral
-OPENAGENDA_API_KEY=ta_cle_openagenda
-```
+1. Cloner le depot : git clone https://github.com/dorrazch-hue/puls-events-rag.git
+2. Creer le venv : python3 -m venv venv
+3. Activer : source venv/bin/activate
+4. Installer : pip install -r requirements.txt
+5. Copier : cp .env.example .env  puis remplir vos cles API
 
 ## Utilisation
 
-### 1. Collecter les données
-```bash
-python3 scripts/fetch_events.py
-```
+1. Collecter les donnees : python3 scripts/fetch_events.py
+2. Nettoyer : python3 scripts/preprocess.py
+3. Vectoriser : python3 scripts/vectorize.py
+4. Lancer le chatbot : python3 scripts/chatbot.py
+5. Lancer les tests : python3 tests_unitaires.py
 
-### 2. Nettoyer les données
-```bash
-python3 scripts/preprocess.py
-```
+## Structure
 
-### 3. Vectoriser et indexer
-```bash
-python3 scripts/vectorize.py
-```
+- scripts/fetch_events.py : recuperation Open Agenda (100 evenements)
+- scripts/preprocess.py : nettoyage et structuration
+- scripts/vectorize.py : vectorisation FAISS
+- scripts/chatbot.py : chatbot RAG LangChain + Mistral
+- tests/fixtures_events.json : donnees de test
+- tests_unitaires.py : 5 tests unitaires
+- .env.example : modele de configuration
 
-### 4. Lancer le chatbot
-```bash
-python3 scripts/chatbot.py
-```
+## Perimetre geographique
 
-### 5. Lancer les tests
-```bash
-python3 tests_unitaires.py
-```
-
-## Structure du projet
-
-```
-puls-events-rag/
-├── scripts/
-│   ├── fetch_events.py    # Récupération des données Open Agenda
-│   ├── preprocess.py      # Nettoyage et structuration
-│   ├── vectorize.py       # Vectorisation FAISS
-│   └── chatbot.py         # Chatbot RAG interactif
-├── tests_unitaires.py     # Tests unitaires
-├── requirements.txt       # Dépendances Python
-├── .gitignore
-└── README.md
-```
-
-## Périmètre géographique
-
-Grand Paris (Paris + communes voisines), événements des 12 derniers mois.
+Grand Paris (Paris, Saint-Ouen, Boulogne, Vincennes, Montreuil, Saint-Denis, Nanterre, Neuilly).
+Evenements des 12 derniers mois.
