@@ -5,7 +5,7 @@ import pickle
 import faiss
 import numpy as np
 from dotenv import load_dotenv
-from mistralai.client import Mistral
+from mistralai import Mistral
 
 load_dotenv()
 client = Mistral(api_key=os.getenv("MISTRAL_API_KEY"))
@@ -26,7 +26,7 @@ embeddings = []
 for i in range(0, len(textes), BATCH_SIZE):
     batch = textes[i:i + BATCH_SIZE]
     print(f"Lot {i//BATCH_SIZE + 1}/{(len(textes)-1)//BATCH_SIZE + 1} ({len(batch)} evenements)...")
-    
+
     while True:
         try:
             start = time.time()
