@@ -1,4 +1,6 @@
-# Puls-Events RAG Chatbot 🎭
+# Puls-Events RAG Chatbot
+
+![Tests](https://github.com/dorrazch-hue/puls-events-rag/actions/workflows/tests.yml/badge.svg)
 
 Chatbot intelligent de recommandation d'événements culturels pour le Grand Paris, basé sur une architecture RAG (Retrieval-Augmented Generation).
 
@@ -50,7 +52,7 @@ python3 scripts/chatbot.py
 python3 -m unittest tests_unitaires.py -v
 ```
 
-**8/8 tests passés** — utilise des fixtures indépendantes (`tests/fixtures_events.json`)
+**8/8 tests passés** — utilise des fixtures indépendantes (`tests/fixtures_events.json`) et un index FAISS synthétique créé automatiquement. Aucune clé API requise.
 
 ## Structure du projet
 
@@ -67,7 +69,11 @@ puls-events-rag/
 ├── docs/
 │   ├── rapport_technique_puls_events.docx
 │   ├── presentation_puls_events.pptx
-│   └── evaluation_rag.md   # Score : 73% de pertinence
+│   ├── evaluation_rag.md          # Score : 73% de pertinence
+│   └── evaluation_data.json       # Données reproductibles (5 questions, scores, justification seuil FAISS)
+├── .github/
+│   └── workflows/
+│       └── tests.yml              # CI GitHub Actions
 ├── .env.example
 ├── requirements.txt
 └── README.md
@@ -80,3 +86,5 @@ Grand Paris : Paris, Saint-Ouen, Boulogne, Vincennes, Montreuil, Saint-Denis, Na
 ## Évaluation RAG
 
 Score mesuré sur 5 questions annotées : **73% de pertinence (2.2/3)**
+
+Données complètes dans `docs/evaluation_data.json` (questions, réponses, distances FAISS, justification du seuil 500).
