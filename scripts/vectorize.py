@@ -5,7 +5,7 @@ import pickle
 import faiss
 import numpy as np
 from dotenv import load_dotenv
-from mistralai import Mistral
+from mistralai.client import Mistral
 
 load_dotenv()
 client = Mistral(api_key=os.getenv("MISTRAL_API_KEY"))

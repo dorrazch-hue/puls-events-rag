@@ -52,7 +52,13 @@ python3 scripts/chatbot.py
 python3 -m unittest tests_unitaires.py -v
 ```
 
-**8/8 tests passés** — utilise des fixtures indépendantes (`tests/fixtures_events.json`) et un index FAISS synthétique créé automatiquement. Aucune clé API requise.
+**12/12 tests passés** — utilise des fixtures indépendantes (`tests/fixtures_events.json`) et un index FAISS synthétique créé automatiquement. Aucune clé API requise.
+
+Pour rejouer l'évaluation RAG sur les 5 questions annotées :
+
+```bash
+python3 scripts/evaluate.py
+```
 
 ## Structure du projet
 
@@ -62,10 +68,11 @@ puls-events-rag/
 │   ├── fetch_events.py     # Collecte Open Agenda (300 événements, pagination)
 │   ├── preprocess.py       # Nettoyage, filtre temporel et géographique
 │   ├── vectorize.py        # Vectorisation par lots (BATCH_SIZE=10)
-│   └── chatbot.py          # Pipeline RAG LangChain avec mesure des temps
+│   ├── chatbot.py          # Pipeline RAG LangChain avec mesure des temps
+│   └── evaluate.py         # Replay des 5 questions d'évaluation (sauvegarde docs/evaluation_results.json)
 ├── tests/
 │   └── fixtures_events.json
-├── tests_unitaires.py      # 8 tests unitaires
+├── tests_unitaires.py      # 12 tests unitaires
 ├── docs/
 │   ├── rapport_technique_puls_events.docx
 │   ├── presentation_puls_events.pptx

@@ -4,10 +4,10 @@ import pickle
 import faiss
 import numpy as np
 from dotenv import load_dotenv
-from mistralai import Mistral
-from langchain.schema import Document
-from langchain.prompts import PromptTemplate
-from langchain.schema.runnable import RunnableLambda, RunnablePassthrough
+from mistralai.client import Mistral
+from langchain_core.documents import Document
+from langchain_core.prompts import PromptTemplate
+from langchain_core.runnables import RunnableLambda, RunnablePassthrough
 
 load_dotenv()
 
