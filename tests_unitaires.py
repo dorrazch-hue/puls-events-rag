@@ -41,12 +41,18 @@ class TestPulsEventsRAG(unittest.TestCase):
         self.assertGreater(len(events), 0)
 
     def test_evenements_moins_un_an(self):
-        """Les evenements preprocesses ont un champ date_debut valide."""
+        """Les evenements preprocesses ont un champ date_debut dans la fenetre des 12 derniers mois."""
+        from datetime import datetime, timedelta
         events = self.charger_fixtures()
+        date_min = (datetime.now() - timedelta(days=365)).strftime("%Y-%m-%d")
         for e in events:
-            # Les evenements preprocesses utilisent date_debut (pas firstTiming.begin)
             date = e.get("date_debut", "")
-            self.assertTrue(len(date) > 0, "Le champ date_debut est manquant")
+            self.assertTrue(len(date) >= 10, f"Champ date_debut manquant ou invalide : '{date}'")
+            # Verifie que la date est bien dans la fenetre temporelle des 12 derniers mois
+            self.assertGreaterEqual(
+                date[:10], date_min,
+                f"Evenement hors fenetre 12 mois : {date} (min attendu : {date_min})"
+            )
 
     def test_ville_paris(self):
         """La fonction de filtrage geographique accepte les communes du Grand Paris."""
