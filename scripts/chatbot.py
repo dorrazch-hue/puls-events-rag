@@ -15,6 +15,13 @@ MISTRAL_API_KEY = os.getenv("MISTRAL_API_KEY")
 client = Mistral(api_key=MISTRAL_API_KEY)
 
 # Chargement index FAISS et metadonnees
+if not os.path.exists("data/events.index"):
+    print("ERREUR : Index FAISS introuvable (data/events.index).")
+    print("Lancez d'abord dans l'ordre depuis la racine du projet :")
+    print("  python3 scripts/fetch_events.py")
+    print("  python3 scripts/preprocess.py")
+    print("  python3 scripts/vectorize.py")
+    import sys; sys.exit(1)
 index = faiss.read_index("data/events.index")
 with open("data/events_metadata.pkl", "rb") as f:
     metadata = pickle.load(f)

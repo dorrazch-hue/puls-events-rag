@@ -15,6 +15,13 @@ INDEX_PATH = "data/events.index"
 META_PATH = "data/events_metadata.pkl"
 BATCH_SIZE = 10
 
+if not os.path.exists(CLEAN_PATH):
+    print("ERREUR : Fichier de donnees introuvable (data/events_clean.json).")
+    print("Lancez d'abord :")
+    print("  python3 scripts/fetch_events.py")
+    print("  python3 scripts/preprocess.py")
+    import sys; sys.exit(1)
+
 with open(CLEAN_PATH, "r", encoding="utf-8") as f:
     events = json.load(f)
 
