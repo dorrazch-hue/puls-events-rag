@@ -37,7 +37,7 @@ def generate(question,context):
 def main():
     data=json.load(open(EVAL_PATH,encoding="utf-8"))
     questions=data.get("evaluations",[])
-    print(f"Replay {len(questions)} questions...\n{"="*60}")
+    print(f"Replay {len(questions)} questions...\n{'='*60}")
     resultats=[]
     for i,q in enumerate(questions,1):
         question=q["question"]; score_ref=q.get("score")
