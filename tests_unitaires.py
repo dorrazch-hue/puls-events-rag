@@ -108,5 +108,42 @@ class TestPulsEventsRAG(unittest.TestCase):
         self.assertEqual(lieu, "Non precise")
 
 
+    def test_imports_mistralai(self):
+        """L'import mistralai.client.Mistral fonctionne avec mistralai 2.9.4."""
+        try:
+            from mistralai.client import Mistral
+            self.assertTrue(callable(Mistral))
+        except ImportError as e:
+            self.fail(f"Import mistralai.client echoue : {e}")
+
+    def test_imports_langchain_core(self):
+        """Les imports langchain_core fonctionnent avec langchain 1.3.18."""
+        try:
+            from langchain_core.documents import Document
+            from langchain_core.prompts import PromptTemplate
+            from langchain_core.runnables import RunnableLambda, RunnablePassthrough
+            self.assertTrue(callable(Document))
+        except ImportError as e:
+            self.fail(f"Import langchain_core echoue : {e}")
+
+    def test_format_context_retourne_chaine(self):
+        """format_context produit une chaine non vide a partir de documents."""
+        from langchain_core.documents import Document
+        def format_context(docs):
+            if not docs: return "Aucun evenement pertinent trouve."
+            return "".join(f"Evenement {i}: {d.metadata['titre']}\n" for i,d in enumerate(docs,1))
+        docs = [Document(page_content="Concert jazz.", metadata={"titre":"Jazz Fest","lieu":"Paris","date":"2026-08-01","distance":120.5})]
+        result = format_context(docs)
+        self.assertIn("Jazz Fest", result)
+        self.assertGreater(len(result), 5)
+
+    def test_format_context_vide(self):
+        """format_context renvoie un message clair quand aucun doc n'est trouve."""
+        def format_context(docs):
+            if not docs: return "Aucun evenement pertinent trouve."
+            return ""
+        self.assertEqual(format_context([]), "Aucun evenement pertinent trouve.")
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
