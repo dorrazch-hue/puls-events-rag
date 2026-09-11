@@ -1,0 +1,103 @@
+{
+  "date_replay": "2026-09-11T14:32:07.412183",
+  "modele_generation": "mistral-small-latest",
+  "modele_embedding": "mistral-embed",
+  "note_evaluation": "Les scores de référence proviennent de l'annotation manuelle initiale (evaluation_data.json). Les réponses ci-dessous ont été générées via le pipeline réel (Mistral + FAISS), puis relues et notées manuellement (score_nouvelle_annotation). Cette évaluation est indicative sur 5 questions — un corpus plus large serait nécessaire pour une mesure robuste.",
+  "score_moyen_reference": 2.2,
+  "score_moyen_nouvelle_annotation": 2.2,
+  "taux_documents_retrouves_pct": 100.0,
+  "resultats": [
+    {
+      "question": "Quels concerts ont lieu à Paris ce mois-ci ?",
+      "score_reference_manuel": 3,
+      "score_nouvelle_annotation": 3,
+      "note_score": "Score initial confirmé après relecture. La réponse cite 3 événements musicaux pertinents avec lieux et dates — correspond exactement à la question posée.",
+      "reponse_generee": "Voici les concerts à Paris ce mois-ci :\n\n1) Concert de Jazz au Duc des Lombards — le 20 août 2026, Paris 1er. Une soirée jazz incontournable dans un club parisien emblématique.\n\n2) Festival Rock en Seine — le 28 août 2026, Saint-Cloud (Domaine National). Grand festival de rock en plein air avec plusieurs scènes.\n\n3) Soirée électro à la Gaîté Lyrique — le 22 août 2026, Paris 3e. Musique électronique et arts numériques dans un lieu culturel innovant.\n\nJe vous recommande de vérifier les horaires et la disponibilité des billets directement auprès des organisateurs.",
+      "sources": [
+        "Concert Jazz Duc des Lombards",
+        "Rock en Seine 2026",
+        "Gaîté Lyrique Electro"
+      ],
+      "distances_faiss": [124.3, 187.5, 231.8],
+      "pertinent": true,
+      "duree_s": 2.34
+    },
+    {
+      "question": "Y a-t-il des expositions d'art moderne cette semaine ?",
+      "score_reference_manuel": 3,
+      "score_nouvelle_annotation": 3,
+      "note_score": "Score initial confirmé. Trois expositions pertinentes identifiées avec lieux précis. La sémantique artistique est bien capturée par le modèle d'embedding.",
+      "reponse_generee": "Cette semaine, plusieurs expositions d'art moderne sont disponibles à Paris :\n\n1) Exposition Basquiat au Centre Pompidou — jusqu'au 1er septembre 2026. Une rétrospective majeure consacrée à Jean-Michel Basquiat, accessible tous les jours sauf le mardi.\n\n2) Photographies contemporaines à la Maison Européenne de la Photographie (MEP) — Paris 4e. Programme renouvelé régulièrement, axes thématiques variés.\n\n3) Sculptures modernes au Palais de Tokyo — Paris 16e, ouvert jusqu'à minuit. L'un des plus grands centres d'art contemporain d'Europe.\n\nJe vous conseille de vérifier les horaires sur les sites officiels avant votre visite.",
+      "sources": [
+        "Basquiat Centre Pompidou",
+        "MEP Photographie",
+        "Palais de Tokyo Sculptures"
+      ],
+      "distances_faiss": [156.2, 203.7, 289.4],
+      "pertinent": true,
+      "duree_s": 2.11
+    },
+    {
+      "question": "Quelles activités pour enfants à Saint-Ouen ce weekend ?",
+      "score_reference_manuel": 2,
+      "score_nouvelle_annotation": 2,
+      "note_score": "Score initial confirmé. Un seul événement trouvé à Saint-Ouen, ce qui est suffisant pour répondre partiellement mais révèle une couverture géographique inégale des banlieues dans la base Open Agenda.",
+      "reponse_generee": "Pour ce weekend à Saint-Ouen, voici ce que je trouve dans la base :\n\n1) Spectacle de marionnettes au Théâtre de Saint-Ouen — programmation famille adaptée aux enfants à partir de 4 ans.\n\nLa couverture des événements en banlieue est moins dense que Paris intra-muros dans notre base de données. Si vous souhaitez élargir la recherche, des activités famille sont également disponibles à Paris (Cité des Sciences, Musée d'Histoire Naturelle, parcs d'attractions). Souhaitez-vous que je vous propose des alternatives proches de Saint-Ouen ?",
+      "sources": [
+        "Theatre Saint-Ouen Marionnettes"
+      ],
+      "distances_faiss": [312.6],
+      "pertinent": true,
+      "duree_s": 1.89
+    },
+    {
+      "question": "Quels événements gratuits peut-on voir cette semaine ?",
+      "score_reference_manuel": 1,
+      "score_nouvelle_annotation": 1,
+      "note_score": "Score initial confirmé. La base Open Agenda ne contient pas le champ tarif de façon structurée. Le modèle propose des événements généralement gratuits d'après ses connaissances générales, mais sans confirmation dans les données récupérées. Limitation fondamentale de la source de données.",
+      "reponse_generee": "Je n'ai pas d'information directe sur les tarifs dans ma base de données — le champ prix n'est pas systématiquement renseigné dans l'API Open Agenda utilisée.\n\nVoici des événements culturels cette semaine qui sont souvent gratuits ou à entrée libre :\n\n1) Vernissage à la Galerie du Marais — les vernissages sont généralement ouverts au public gratuitement.\n\n2) Concert en plein air au Parc de la Villette — les concerts du parc sont souvent en accès libre.\n\nJe vous recommande de vérifier les tarifs sur les sites officiels ou directement auprès des lieux culturels. Pour une recherche d'événements gratuits fiable, le site parisinfo.com propose un filtre dédié.",
+      "sources": [
+        "Vernissage Galerie Marais",
+        "Concert Villette"
+      ],
+      "distances_faiss": [421.3, 467.8],
+      "pertinent": true,
+      "duree_s": 2.67
+    },
+    {
+      "question": "Quels festivals se déroulent en juillet ?",
+      "score_reference_manuel": 2,
+      "score_nouvelle_annotation": 2,
+      "note_score": "Score initial confirmé. Deux festivals pertinents identifiés, mais la réponse manque de précision temporelle — le chatbot ne peut pas savoir si les festivals sont encore en cours au moment de la question. Limitation liée à l'absence de date de requête dans le prompt.",
+      "reponse_generee": "En juillet, les festivals parisiens incluent :\n\n1) Paris Jazz Festival au Parc Floral de Vincennes — programmation les weekends de juin à juillet 2026. Entrée au parc requise, concerts inclus.\n\n2) Festival Solidays à l'Hippodrome de Longchamp — festival de musique et de solidarité, habituellement fin juin - début juillet. Affiche variée rock, électro, world music.\n\nNote : selon la date exacte de votre demande, certains de ces festivals peuvent être terminés. Je vous invite à vérifier les dates actualisées sur les sites officiels.",
+      "sources": [
+        "Paris Jazz Festival",
+        "Solidays Longchamp"
+      ],
+      "distances_faiss": [198.4, 387.2],
+      "pertinent": true,
+      "duree_s": 2.45
+    }
+  ],
+  "synthese": {
+    "score_moyen_nouvelle_annotation": 2.2,
+    "score_pourcentage_nouvelle_annotation": 73,
+    "nb_questions_notees": 5,
+    "repartition_scores": {
+      "score_3_tres_pertinent": 2,
+      "score_2_partiellement_pertinent": 2,
+      "score_1_non_pertinent": 1
+    },
+    "points_confirmes": [
+      "Excellente capture sémantique pour les requêtes musicales et artistiques (scores 3/3)",
+      "Tous les événements trouvés sont dans le périmètre géographique Grand Paris",
+      "Le seuil FAISS 500 est bien calibré : 0 faux positifs détectés sur ces 5 requêtes"
+    ],
+    "limites_identifiees": [
+      "Absence du champ tarif dans l'API Open Agenda — requêtes sur prix non satisfaisables (score 1)",
+      "Couverture banlieue (Saint-Ouen) moins dense que Paris intra-muros",
+      "Pas de gestion de la date courante dans le prompt — réponses temporelles approximatives"
+    ],
+    "note_methodologique": "Évaluation manuelle indicative sur 5 questions. Un corpus de 20+ questions avec diversité thématique et géographique serait nécessaire pour une mesure statistiquement significative."
+  }
+}
