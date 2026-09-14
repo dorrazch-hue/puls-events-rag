@@ -92,6 +92,7 @@ Grand Paris : Paris, Saint-Ouen, Boulogne, Vincennes, Montreuil, Saint-Denis, Na
 
 ## Évaluation RAG
 
-Score mesuré sur 5 questions annotées : **73% de pertinence (2.2/3)**
+**Résultats finaux** (`docs/evaluation_results.json`) : score de **73% de pertinence (2.2/3)** sur 5 questions — évaluation manuelle indicative, un corpus plus large serait nécessaire pour une mesure statistiquement robuste.
 
-Données complètes dans `docs/evaluation_data.json` (questions, réponses, distances FAISS, justification du seuil 500).
+- `docs/evaluation_results.json` — **résultats finaux** : réponses rejouées via le pipeline réel + notation manuelle (à consulter en priorité)
+- `docs/evaluation_data.json` — données de référence : questions, seuil FAISS, justification du seuil 500
