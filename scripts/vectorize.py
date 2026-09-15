@@ -1,3 +1,12 @@
+"""
+Script de vectorisation des evenements avec Mistral Embed.
+Lit les evenements nettoyes (data/events_clean.json), genere les embeddings
+par lots de 10 avec retry sur rate-limit (429), puis sauvegarde l'index
+FAISS (data/events.index) et les metadonnees (data/events_metadata.pkl).
+
+Usage : python3 scripts/vectorize.py
+Prerequis : lancer fetch_events.py puis preprocess.py avant ce script.
+"""
 import os
 import json
 import time

@@ -1,3 +1,10 @@
+"""
+Script de collecte des evenements culturels via l'API Open Agenda.
+Recupere jusqu'a 300 evenements de l'agenda 'que-faire-a-paris' par pagination.
+Les donnees brutes sont sauvegardees dans data/events.json.
+
+Usage : python3 scripts/fetch_events.py
+"""
 import os
 import json
 import requests

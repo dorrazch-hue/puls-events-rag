@@ -76,9 +76,8 @@ puls-events-rag/
 ├── docs/
 │   ├── rapport_technique_puls_events.docx
 │   ├── presentation_puls_events.pptx
-│   ├── evaluation_rag.md              # Score : 73% de pertinence
-│   ├── evaluation_results.json        # Résultats finaux : réponses rejouées + notation manuelle
-│   └── evaluation_data.json           # Données de référence : questions, seuil FAISS, justification du seuil 500
+│   ├── evaluation_rag.md          # Score : 73% de pertinence
+│   └── evaluation_data.json       # Données reproductibles (5 questions, scores, justification seuil FAISS)
 ├── .github/
 │   └── workflows/
 │       └── tests.yml              # CI GitHub Actions
@@ -93,7 +92,6 @@ Grand Paris : Paris, Saint-Ouen, Boulogne, Vincennes, Montreuil, Saint-Denis, Na
 
 ## Évaluation RAG
 
-**Résultats finaux** (`docs/evaluation_results.json`) : score de **73% de pertinence (2.2/3)** sur 5 questions — évaluation manuelle indicative, un corpus plus large serait nécessaire pour une mesure statistiquement robuste.
+Score mesuré sur 5 questions annotées : **73% de pertinence (2.2/3)**
 
-- `docs/evaluation_results.json` — **résultats finaux** : réponses rejouées via le pipeline réel + notation manuelle (à consulter en priorité)
-- `docs/evaluation_data.json` — données de référence : questions, seuil FAISS, justification du seuil 500
+Données complètes dans `docs/evaluation_data.json` (questions, réponses, distances FAISS, justification du seuil 500).

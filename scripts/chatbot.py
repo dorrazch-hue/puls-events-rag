@@ -1,3 +1,13 @@
+"""
+Chatbot RAG Puls-Events — pipeline LangChain + Mistral + FAISS.
+Charge l'index FAISS et les metadonnees, expose un rag_chain LangChain
+et une interface interactive en ligne de commande.
+
+Pipeline : embed_question -> search_events (FAISS) -> format_context -> generate_response (Mistral).
+
+Usage : python3 scripts/chatbot.py
+Prerequis : avoir lance fetch_events.py, preprocess.py et vectorize.py au prealable.
+"""
 import os
 import time
 import pickle
@@ -122,6 +132,7 @@ rag_chain = (
 
 
 def main():
+    """Lance le chatbot en mode interactif dans le terminal."""
     print("Chatbot Puls-Events (LangChain + Mistral + FAISS)")
     print("Tapez 'quit' pour quitter\n")
 

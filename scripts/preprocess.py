@@ -1,3 +1,13 @@
+"""
+Script de nettoyage et filtrage des evenements Open Agenda.
+Filtre les evenements bruts (data/events.json) selon deux criteres :
+  - temporel : evenements des 12 derniers mois
+  - geographique : communes du Grand Paris uniquement
+Sauvegarde les evenements nettoyes dans data/events_clean.json.
+
+Usage : python3 scripts/preprocess.py
+Prerequis : lancer fetch_events.py avant ce script.
+"""
 import json
 import os
 from datetime import datetime, timedelta

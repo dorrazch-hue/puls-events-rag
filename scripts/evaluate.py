@@ -61,6 +61,7 @@ def charger_annotations_existantes(results_path):
 
 
 def main():
+    """Rejoue les questions d'evaluation et sauvegarde les resultats en preservant les annotations manuelles."""
     with open(EVAL_PATH, encoding="utf-8") as f:
         data = json.load(f)
 
