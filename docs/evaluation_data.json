@@ -78,6 +78,6 @@
       "Filtre temporel par rapport à la date de collecte plutôt que la date actuelle"
     ],
     "commande_reproduction": "python tests_unitaires.py -v",
-    "note_reproductibilite": "Les tests unitaires utilisent un index FAISS synthétique créé automatiquement en setUpClass. Aucun pipeline complet ni clé API n'est requis pour reproduire les 8/8 tests."
+    "note_reproductibilite": "Les tests unitaires utilisent un index FAISS synthétique créé automatiquement en setUpClass. Aucun pipeline complet ni clé API n'est requis pour reproduire les 12/12 tests."
   }
 }

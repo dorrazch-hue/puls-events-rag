@@ -76,8 +76,9 @@ puls-events-rag/
 ├── docs/
 │   ├── rapport_technique_puls_events.docx
 │   ├── presentation_puls_events.pptx
-│   ├── evaluation_rag.md          # Score : 73% de pertinence
-│   └── evaluation_data.json       # Données reproductibles (5 questions, scores, justification seuil FAISS)
+│   ├── evaluation_rag.md              # Score : 73% de pertinence
+│   ├── evaluation_results.json        # Résultats finaux : réponses rejouées + notation manuelle
+│   └── evaluation_data.json           # Données de référence : questions, seuil FAISS, justification du seuil 500
 ├── .github/
 │   └── workflows/
 │       └── tests.yml              # CI GitHub Actions

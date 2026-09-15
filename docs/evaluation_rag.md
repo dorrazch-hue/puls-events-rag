@@ -18,28 +18,28 @@
 
 ---
 
-### Q2 : "Y a-t-il des expositions d'art moderne ?"
-**Réponse du chatbot :** Cite 2 expositions d'art contemporain avec description.
+### Q2 : "Y a-t-il des expositions d'art moderne cette semaine ?"
+**Réponse du chatbot :** Cite 3 expositions d'art contemporain avec description (Basquiat/Pompidou, MEP, Palais de Tokyo).
 **Score : 3/3**
 *La sémantique artistique est bien capturée par le modèle d'embedding.*
 
 ---
 
-### Q3 : "Des activités pour les familles à Saint-Ouen ?"
-**Réponse du chatbot :** Propose des événements familiaux mais pas tous à Saint-Ouen spécifiquement.
+### Q3 : "Quelles activités pour enfants à Saint-Ouen ce weekend ?"
+**Réponse du chatbot :** Propose 1 événement à Saint-Ouen (spectacle de marionnettes) — couverture banlieue limitée.
 **Score : 2/3**
 *Le filtre géographique précis sur une commune est perfectible.*
 
 ---
 
-### Q4 : "Quels événements sont gratuits ?"
+### Q4 : "Quels événements gratuits peut-on voir cette semaine ?"
 **Réponse du chatbot :** Ne peut pas filtrer par prix, donne des événements génériques.
 **Score : 1/3**
 *L'API Open Agenda ne fournit pas systématiquement le champ prix. Amélioration future : enrichissement des données.*
 
 ---
 
-### Q5 : "Quels festivals se passent en juillet ?"
+### Q5 : "Quels festivals se déroulent en juillet ?"
 **Réponse du chatbot :** Donne des festivals mais sans filtre temporel strict sur juillet.
 **Score : 2/3**
 *Le filtre temporel précis sur un mois donné est perfectible.*
@@ -66,7 +66,7 @@
 **Points forts :**
 - Recherche sémantique générale : excellente (concerts, expositions)
 - Couverture événementielle : 300 événements indexés via pagination Open Agenda
-- Temps de réponse : 3 à 5 secondes (pipeline LangChain optimisé)
+- Temps de réponse : 2 à 3 secondes (mesuré sur les 5 questions, min 1.89s / max 2.67s)
 
 **Axes d'amélioration :**
 - Enrichir les données avec le champ prix (actuellement absent de l'API)
